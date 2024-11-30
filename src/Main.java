@@ -9,12 +9,13 @@ public class Main {
         int h = 800;
 
         JFrame f = new JFrame();
-        Graph gr = new Graph(w,h);
+        BGDraw bg = new BGDraw(w,h);
         f.setSize(w,h);
         f.setTitle("Game Engine in Java!");
-        f.add(gr);
+        f.add(bg);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
+        f.setResizable(false);
 
     }
 

@@ -2,11 +2,11 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-public class Graph extends JComponent{
+public class BGDraw extends JComponent{
 
     private int width, height;
 
-    public Graph(int w, int h){
+    public BGDraw(int w, int h){
 
         width = w;
         height = h;
@@ -22,18 +22,22 @@ public class Graph extends JComponent{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHints(rh);
 
-        Rectangle2D.Double r = new Rectangle2D.Double(50,75,100,250);
+        Rectangle2D.Double c = new Rectangle2D.Double(0,0, width,20);
+        Rectangle2D.Double b = new Rectangle2D.Double(0,height - 50, width,20);
+        Rectangle2D.Double l = new Rectangle2D.Double(0,0,20, height);
+        Rectangle2D.Double r = new Rectangle2D.Double(width - 36,0,20,height);
+
         Rectangle2D.Double bg = new Rectangle2D.Double(0,0,width,height);
-        Ellipse2D.Double el = new Ellipse2D.Double(40,100, (double) width /2, (double) height /2);
 
         g2d.setColor(Color.black);
         g2d.fill(bg);
 
-        g2d.setColor(Color.white);
+        g2d.setColor(Color.gray);
+        g2d.fill(c);
+        g2d.fill(b);
+        g2d.fill(l);
         g2d.fill(r);
 
-        g2d.setColor(Color.cyan);
-        g2d.fill(el);
     }
 
 }
