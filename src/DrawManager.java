@@ -2,11 +2,12 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-public class DrawManager extends JComponent{
+public class DrawManager extends JComponent {
 
-    private final int width;
-    private final int height;
+    public final int width;
+    public final int height;
     public PGDraw pg;
+    public int maxSpeed = 10;
 
     public DrawManager(int w, int h){
 

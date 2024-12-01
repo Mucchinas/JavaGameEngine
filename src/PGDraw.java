@@ -12,7 +12,7 @@ public class PGDraw extends JComponent {
     public PGDraw(float w, float h){
 
         posX = w/2 - width/2;
-        posY = h*6/7 - height/2;
+        posY = h*9/10 - height/2;
 
     }
 
