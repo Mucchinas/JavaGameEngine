@@ -1,21 +1,41 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        int w = 1200;
-        int h = 800;
+        int w = 1600;
+        int h = 1000;
+        int speed = 10;
 
         JFrame f = new JFrame();
-        BGDraw bg = new BGDraw(w,h);
+        DrawManager drawManager = new DrawManager(w,h);
         f.setSize(w,h);
         f.setTitle("Game Engine in Java!");
-        f.add(bg);
+        f.add(drawManager);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
         f.setResizable(false);
+
+        while (true) {
+
+            drawManager.pg.posX += speed;
+            drawManager.repaint();
+            if (drawManager.pg.posX > w - 120){
+
+                speed = -speed;
+
+            }
+
+            if (drawManager.pg.posX < 40){
+
+                speed = -speed;
+
+            }
+
+            Thread.sleep(33);
+
+        }
 
     }
 

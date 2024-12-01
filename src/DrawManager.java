@@ -2,14 +2,17 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-public class BGDraw extends JComponent{
+public class DrawManager extends JComponent{
 
-    private int width, height;
+    private final int width;
+    private final int height;
+    public PGDraw pg;
 
-    public BGDraw(int w, int h){
+    public DrawManager(int w, int h){
 
         width = w;
         height = h;
+        pg = new PGDraw(width, height);
 
     }
 
@@ -37,6 +40,8 @@ public class BGDraw extends JComponent{
         g2d.fill(b);
         g2d.fill(l);
         g2d.fill(r);
+
+        pg.DrawPg(g2d);
 
     }
 
