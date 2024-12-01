@@ -10,6 +10,7 @@ public class DrawManager extends JComponent {
     public final int height;
     public PGDraw pg;
     public BlocksDraw block;
+    public Collisions coll;
     public List<BallDraw> balls = new ArrayList<>();
     public int maxSpeed = 10;
     public int score = 0;
@@ -21,6 +22,7 @@ public class DrawManager extends JComponent {
         pg = new PGDraw(width, height);
         block = new BlocksDraw(width, height);
         balls.add(new BallDraw(width,height));
+        coll = new Collisions(width, height, this);
 
     }
 

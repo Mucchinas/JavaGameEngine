@@ -17,6 +17,7 @@ public class GameLogic extends JComponent implements KeyListener {
     List<BallDraw> balls;
 
     DrawManager dw;
+    Collisions coll;
 
     public GameLogic(DrawManager dw){
 
@@ -25,6 +26,7 @@ public class GameLogic extends JComponent implements KeyListener {
         h = dw.height;
         maxSpeed = dw.maxSpeed;
         balls = dw.balls;
+        coll = dw.coll;
 
     }
 
@@ -35,25 +37,7 @@ public class GameLogic extends JComponent implements KeyListener {
         while (true) {
 
 
-            for (BallDraw ball : balls) {
-
-                ball.posX += ballSpeedX;
-                ball.posY += ballSpeedY;
-
-
-                if (ball.posY > 900 || ball.posY < 100) {
-
-                    ballSpeedY = -ballSpeedY;
-
-                }
-
-                if (ball.posX > 1500 || ball.posX < 100) {
-
-                    ballSpeedX = -ballSpeedX;
-
-                }
-
-            }
+            coll.CheckCollisions(this);
 
 
             if (boost){
