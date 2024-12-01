@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
@@ -9,7 +10,11 @@ public class GameLogic extends JComponent implements KeyListener {
     final int w,h;
     float speed = 0;
     int maxSpeed;
+    int ballSpeedX = 6;
+    int ballSpeedY = 6;
     boolean boost = false;
+
+    List<BallDraw> balls;
 
     DrawManager dw;
 
@@ -19,6 +24,7 @@ public class GameLogic extends JComponent implements KeyListener {
         w = dw.width;
         h = dw.height;
         maxSpeed = dw.maxSpeed;
+        balls = dw.balls;
 
     }
 
@@ -27,6 +33,27 @@ public class GameLogic extends JComponent implements KeyListener {
         addKeyListener(this);
 
         while (true) {
+
+
+            for (BallDraw ball : balls) {
+
+                ball.posX += ballSpeedX;
+                ball.posY += ballSpeedY;
+
+
+                if (ball.posY > 900 || ball.posY < 100) {
+
+                    ballSpeedY = -ballSpeedY;
+
+                }
+
+                if (ball.posX > 1500 || ball.posX < 100) {
+
+                    ballSpeedX = -ballSpeedX;
+
+                }
+
+            }
 
 
             if (boost){
@@ -48,7 +75,7 @@ public class GameLogic extends JComponent implements KeyListener {
 
                 }
             }
-            if ((speed > 0 && dw.pg.posX < w-120) || (speed < 0 && dw.pg.posX > 30)){
+            if ((speed > 0 && dw.pg.posX < w-140) || (speed < 0 && dw.pg.posX > 30)){
 
                 dw.pg.posX += speed;
 

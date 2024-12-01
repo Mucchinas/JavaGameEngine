@@ -1,12 +1,11 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
 
-public class PGDraw extends JComponent {
+public class PGDraw{
 
     public float posX;
     public float posY;
-    private float width = 70;
+    private float width = 90;
     private final float height = 20;
 
     public PGDraw(float w, float h){

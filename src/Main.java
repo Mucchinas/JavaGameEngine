@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         int w = 1600;
-        int h = 1200;
+        int h = 1000;
 
         JFrame f = new JFrame();
         DrawManager drawManager = new DrawManager(w,h);
