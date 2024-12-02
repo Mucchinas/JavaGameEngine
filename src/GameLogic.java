@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
@@ -10,11 +11,8 @@ public class GameLogic extends JComponent implements KeyListener {
     final int w,h;
     float speed = 0;
     int maxSpeed;
-    int ballSpeedX = 6;
-    int ballSpeedY = 6;
-    boolean boost = false;
 
-    List<BallDraw> balls;
+    ConcurrentLinkedQueue<BallDraw> balls;
 
     DrawManager dw;
     Collisions coll;
@@ -33,35 +31,25 @@ public class GameLogic extends JComponent implements KeyListener {
     public void GameLoop() throws InterruptedException {
 
         addKeyListener(this);
+        int k = 0;
 
         while (true) {
+
+            addKeyListener(this);
 
 
             coll.CheckCollisions(this);
 
-
-            if (boost){
-
-                maxSpeed = 15;
-                if (Math.abs(speed) < 14){
-
-                    speed *= 1.5f;
-
-                }
-
-
-            } else {
-
-                maxSpeed = 10;
-                if (Math.abs(speed) > 10){
-
-                    speed = Math.round(speed * 0.66f);
-
-                }
-            }
             if ((speed > 0 && dw.pg.posX < w-140) || (speed < 0 && dw.pg.posX > 30)){
 
                 dw.pg.posX += speed;
+
+            }
+
+            if (dw.score > 10 + k * 10){
+
+                balls.add(new BallDraw(w,h));
+                k += 1;
 
             }
             dw.repaint();
@@ -97,13 +85,19 @@ public class GameLogic extends JComponent implements KeyListener {
 
         if (key == KeyEvent.VK_SPACE){
 
-            boost = !boost;
+            return;
 
         }
 
         if (key == KeyEvent.VK_DOWN){
 
             speed = 0;
+
+        }
+
+        if (key == KeyEvent.VK_UP){
+
+            dw.yetToStart = false;
 
         }
 

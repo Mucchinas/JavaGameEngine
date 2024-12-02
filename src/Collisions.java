@@ -1,16 +1,20 @@
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Collisions {
 
     private final int w;
     private final int h;
     public DrawManager dw;
-    public List<BallDraw> balls;
+    public ConcurrentLinkedQueue<BallDraw> balls;
     public PGDraw pg;
     public BlocksDraw bd;
     public Rectangle2D.Double[][] blocks;
 
+    Random rand = new Random();
 
     public Collisions(int w, int h, DrawManager dw){
 
@@ -30,19 +34,59 @@ public class Collisions {
 
         for (BallDraw ball : balls) {
 
-            ball.posX += game.ballSpeedX;
-            ball.posY += game.ballSpeedY;
+            if (!dw.yetToStart) {
+                ball.posX += ball.ballSpeedX;
+                ball.posY += ball.ballSpeedY;
+            }
 
 
-            if (ball.posY > 945 - ball.size || ball.posY < 22) {
+            if (ball.posY < 22) {
 
-                game.ballSpeedY = -game.ballSpeedY;
+                ball.ballSpeedY = -ball.ballSpeedY;
+                ball.ballSpeedX = rand.nextInt(8);
 
             }
 
-            if (ball.posX > 1560 - ball.size || ball.posX < 22) {
+            if (ball.posX < 22 || ball.posX > 1545) {
 
-                game.ballSpeedX = -game.ballSpeedX;
+                ball.ballSpeedX = -ball.ballSpeedX;
+
+            }
+
+            if (ball.posX + ball.size > pg.posX && ball.posX < pg.posX + pg.width && ball.posY + ball.size > pg.posY && ball.posY + ball.size < pg.posY + 8){
+
+                ball.ballSpeedY = -ball.ballSpeedY;
+
+            }
+
+            if (ball.posY > 940){
+
+                balls.remove(ball);
+                if (balls.isEmpty()){
+
+                    balls.add(new BallDraw(w,h));
+                    bd.Restart();
+                    dw.yetToStart = true;
+
+                }
+
+            }
+
+            for (int i = 0; i < blocks.length; i++){
+
+                for (int k = 0; k < blocks[i].length; k++){
+
+                    if (blocks[i][k] != null && blocks[i][k].getBounds2D().contains(ball.posX,ball.posY)){
+
+                        blocks[i][k] = null;
+                        dw.score += 1;
+                        ball.ballSpeedY = -ball.ballSpeedY;
+                        ball.ballSpeedX = rand.nextInt(8);
+
+
+                    }
+
+                }
 
             }
 

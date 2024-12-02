@@ -2,16 +2,19 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListSet;
 import javax.swing.*;
 
 public class DrawManager extends JComponent {
 
+    boolean yetToStart = true;
     public final int width;
     public final int height;
     public PGDraw pg;
     public BlocksDraw block;
     public Collisions coll;
-    public List<BallDraw> balls = new ArrayList<>();
+    public ConcurrentLinkedQueue<BallDraw> balls = new ConcurrentLinkedQueue<>();
     public int maxSpeed = 10;
     public int score = 0;
 
@@ -59,6 +62,13 @@ public class DrawManager extends JComponent {
         for (BallDraw ball : balls){
 
             ball.Draw(g2d);
+
+        }
+
+        if (yetToStart){
+
+            g2d.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+            g2d.drawString("Press UP ARROW to start", width/3 - 40,height/3 + 100);
 
         }
 

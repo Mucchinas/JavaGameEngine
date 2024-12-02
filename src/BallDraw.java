@@ -5,6 +5,8 @@ public class BallDraw {
 
     public int posX;
     public int posY;
+    public int ballSpeedX = 6;
+    public int ballSpeedY = 6;
     public int size = 10;
     public int ballTopX = posX + size/2;
     public int ballTopY = posY;
@@ -17,8 +19,8 @@ public class BallDraw {
 
     public BallDraw(int w, int h){
 
-        posX = w/2 - size/2;
-        posY = h/2 - size/2;
+        this.posX = w/2 - size/2;
+        this.posY = h/2 - size/2;
 
     }
 

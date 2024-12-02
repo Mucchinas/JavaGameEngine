@@ -5,7 +5,7 @@ public class PGDraw{
 
     public float posX;
     public float posY;
-    private float width = 90;
+    public float width = 90;
     private final float height = 20;
 
     public PGDraw(float w, float h){
